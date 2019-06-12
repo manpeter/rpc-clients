@@ -1,5 +1,5 @@
 {
-    "name": "sixStar/rpc-clients",
+    "name": "six-star/rpc-client",
     "type": "library",
     "keywords": [
         "php",
