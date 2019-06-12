@@ -12,7 +12,7 @@ use Six\Rpc\Client\ReferenceRegister;
 use Swoft\Annotation\Annotation\Mapping\AnnotationParser;
 use Swoft\Annotation\Annotation\Parser\Parser;
 use Swoft\Proxy\Exception\ProxyException;
-use \Six\Rpc\Client\Annotation\Mapping\Reference;
+use Six\Rpc\Client\Annotation\Mapping\Reference; 
 use Swoft\Rpc\Client\Exception\RpcClientException;
 /**
  * Class ReferenceParser

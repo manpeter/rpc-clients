@@ -81,15 +81,11 @@ trait ServiceTrait
      */
     private function sendAndRecv(Connection $connection, string $data, string $message, bool $reconnect = false): string
     {
-
-        var_dump('正常发送数据');
         //Reconnect
         if ($reconnect) {
-            var_dump('重连操作');
             $connection->reconnect();
         }
         if (!$connection->send($data)) {
-            var_dump($connection->send(),'发送数据不成功');
             if ($reconnect) {
                 throw new RpcClientException($message);
             }

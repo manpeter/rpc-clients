@@ -57,9 +57,7 @@ class Connection extends AbstractConnection implements ConnectionInterface
     {
         $connection = new \Co\Client(SWOOLE_SOCK_TCP);
         [$host, $port] = $this->getHostPort();
-
         $setting = $this->client->getSetting();
-        //创建连接时，包括创建连接后都需要触发call调用
         if (!empty($setting)) {
             $connection->set($setting);
         }
@@ -141,10 +139,7 @@ class Connection extends AbstractConnection implements ConnectionInterface
 
             return [$this->client->getHost(), $this->client->getPort()];
         }
-
         $list = $provider->getList();
-        var_dump($list);
-
         if (!is_array($list)) {
             throw new RpcClientException(
                 sprintf('Provider(%s) return format is error!', JsonHelper::encode($list))
