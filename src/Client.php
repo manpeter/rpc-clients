@@ -4,10 +4,9 @@
 namespace Six\Rpc\Client;
 
 use ReflectionException;
+use Six\Rpc\Client\Contract\ProviderInterface;
 use Swoft\Bean\BeanFactory;
 use Swoft\Bean\Exception\ContainerException;
-use Swoft\Rpc\Client\Contract\ExtenderInterface;
-use Swoft\Rpc\Client\Contract\ProviderInterface;
 use Swoft\Rpc\Client\Exception\RpcClientException;
 use Swoft\Rpc\Contract\PacketInterface;
 use Swoft\Stdlib\Helper\Arr;
@@ -124,7 +123,7 @@ class Client
     /**
      * @return ProviderInterface
      */
-    public function getProvider(): ?\Six\Rpc\Client\Contract\ProviderInterface
+    public function getProvider(): ?ProviderInterface
     {
         return $this->provider;
     }

@@ -40,7 +40,6 @@ trait ServiceTrait
         $pool = BeanFactory::getBean($poolName);
         /* @var Connection $connection */
         $connection = $pool->getConnection();
-
         \Swoft::trigger('rpcCall',null,$connection->getHostPort());
 
         $connection->setRelease(true);

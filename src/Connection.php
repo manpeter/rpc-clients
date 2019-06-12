@@ -7,14 +7,14 @@ namespace Six\Rpc\Client;
 use function count;
 use function explode;
 use ReflectionException;
+use Six\Rpc\Client\Contract\ConnectionInterface;
+use Six\Rpc\Client\Contract\ProviderInterface;
 use function sprintf;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Bean\Concern\PrototypeTrait;
 use Swoft\Bean\Exception\ContainerException;
 use Swoft\Connection\Pool\AbstractConnection;
 use Swoft\Log\Debug;
-use Swoft\Rpc\Client\Contract\ConnectionInterface;
-use Swoft\Rpc\Client\Contract\ProviderInterface;
 use Swoft\Rpc\Client\Exception\RpcClientException;
 use Swoft\Rpc\Contract\PacketInterface;
 use Swoft\Stdlib\Helper\JsonHelper;
@@ -57,6 +57,7 @@ class Connection extends AbstractConnection implements ConnectionInterface
     {
         $connection = new \Co\Client(SWOOLE_SOCK_TCP);
         [$host, $port] = $this->getHostPort();
+
         $setting = $this->client->getSetting();
         //创建连接时，包括创建连接后都需要触发call调用
         if (!empty($setting)) {
@@ -135,11 +136,15 @@ class Connection extends AbstractConnection implements ConnectionInterface
     public function getHostPort(): array
     {
         $provider = $this->client->getProvider();
+
         if (empty($provider) || !$provider instanceof ProviderInterface || empty(env('AUTOLOAD_REGISTER'))) {
+
             return [$this->client->getHost(), $this->client->getPort()];
         }
 
         $list = $provider->getList();
+        var_dump($list);
+
         if (!is_array($list)) {
             throw new RpcClientException(
                 sprintf('Provider(%s) return format is error!', JsonHelper::encode($list))
