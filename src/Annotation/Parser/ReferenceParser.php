@@ -48,7 +48,8 @@ class ReferenceParser extends Parser
         $this->definitions[$className] = [
             'class' => $className,
         ];
-        ReferenceRegister::register($className, $annotationObject->getPool(), $annotationObject->getVersion());
+        //注册服务信息
+        ReferenceRegister::register($className, $annotationObject->getPool(), $annotationObject->getVersion(),$annotationObject->getFallback());
         return [$className, true];
     }
 }

@@ -8,31 +8,26 @@ use Doctrine\Common\Annotations\Annotation\Target;
 use Swoft\Rpc\Protocol;
 
 /**
- * Class Reference
- *
- * @since 2.0
  *
  * @Annotation
- * @Target("PROPERTY")
+ * @Target("CLASS")
  * @Attributes({
  *     @Attribute("event", type="string"),
  * })
  */
-class Reference
+class Fallback
 {
     /**
      * @var string
      *
      * @Required()
      */
-    private $pool;
-
+    private $name;
     /**
      * @var string
      */
     private $version = Protocol::DEFAULT_VERSION;
 
-    private $fallback='';
     /**
      * Reference constructor.
      *
@@ -42,14 +37,11 @@ class Reference
     {
         if (isset($values['value'])) {
             $this->pool = $values['value'];
-        } elseif (isset($values['pool'])) {
-            $this->pool = $values['pool'];
+        } elseif (isset($values['name'])) {
+            $this->name = $values['name'];
         }
         if (isset($values['version'])) {
             $this->version = $values['version'];
-        }
-        if (isset($values['fallback'])) {
-            $this->fallback = $values['fallback'];
         }
     }
 
@@ -64,15 +56,8 @@ class Reference
     /**
      * @return string
      */
-    public function getPool(): string
+    public function getName(): string
     {
-        return $this->pool;
-    }
-    /**
-     * @return string
-     */
-    public function getFallback(): string
-    {
-        return $this->fallback;
+        return $this->name;
     }
 }

@@ -37,10 +37,12 @@ class AutoLoader extends SwoftComponent
      */
     public function beans(): array
     {
-
         return [
             'rpcClientPacket' => [
                 'class' => Packet::class
+            ],
+            'circuit'=>[
+                'class'=>CircuitBreak::class
             ]
         ];
     }

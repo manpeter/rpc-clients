@@ -33,6 +33,10 @@ class Connection extends AbstractConnection implements ConnectionInterface
 
     protected $client;
 
+    protected $host;
+
+    protected $port;
+
     /**
      * @param \Swoft\Rpc\Client\Client $client
      * @param Pool                     $pool
@@ -58,6 +62,10 @@ class Connection extends AbstractConnection implements ConnectionInterface
         $connection = new \Co\Client(SWOOLE_SOCK_TCP);
         [$host, $port] = $this->getHostPort();
         $setting = $this->client->getSetting();
+        //赋值属性用于区分服务
+        $this->host=$host;
+        $this->port=$port;
+
         if (!empty($setting)) {
             $connection->set($setting);
         }
@@ -67,10 +75,14 @@ class Connection extends AbstractConnection implements ConnectionInterface
             );
 
         }
-
         $this->connection = $connection;
     }
-
+    /*
+     * 获取当前连接的地址
+     */
+    public function  getAddress(){
+        return ['host'=>$this->host,'port'=>$this->port];
+    }
     /**
      * Close connection
      */
